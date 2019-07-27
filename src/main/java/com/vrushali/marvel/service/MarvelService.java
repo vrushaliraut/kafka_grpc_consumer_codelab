@@ -17,11 +17,11 @@ public class MarvelService extends MarvelSuperHeroServiceImplBase {
     }
 
     @Override
-    public void addMarvelSuperHero(MarvelSuperheroRequest request,
-                                   StreamObserver<MarvelSuperheroResponse> response){
+    public void addMarvelSuperHero(MarvelSuperheroRequest request, StreamObserver<MarvelSuperheroResponse> response) {
         MarvelSuperheroResponse.Builder builder = MarvelSuperheroResponse.newBuilder();
         AddSuperHero superheroName = new AddSuperHero(request.getSuperheroName());
         repository.addSuperhero(superheroName);
+        System.out.println("successfully save response" + superheroName);
         builder.setSuperheroName(request.getSuperheroName());
         response.onNext(builder.build());
         response.onCompleted();

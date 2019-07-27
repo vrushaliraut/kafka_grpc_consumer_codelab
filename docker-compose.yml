@@ -3,17 +3,22 @@ services:
   db:
     image: postgres:11-alpine
     ports:
-    - "5432:5432"
+      - "5432:5432"
     environment:
-    - POSTGRES_DB=marvel_superhero
-    - POSTGRES_USER=vrushali
-    - POSTGRES_PASSWORD=vrushali
+      - POSTGRES_DB=marvel_superhero
+      - POSTGRES_USER=vrushali
+      - POSTGRES_PASSWORD=vrushali
 
-  kf:
-    image: spotify/kafka
+  zookeeper:
+    image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:latest
+    ports:
       - "9092:9092"
     environment:
-      - ADVERTISED_HOST=0.0.0.0
-      - ADVERTISED_PORT=9092
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

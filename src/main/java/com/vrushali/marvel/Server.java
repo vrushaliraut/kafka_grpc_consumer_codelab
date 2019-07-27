@@ -21,10 +21,10 @@ public class Server {
         final ApplicationConfiguration appConfig =
                 Figaro.configure(new UnmodifiableListSet<>(getMandatoryVariables()));
         server = ServerBuilder.forPort(port)
-                .addService(MarvelServiceFactory.instance(appConfig))
+                .addService(MarvelServiceFactory.createService(appConfig))
                 .build()
                 .start();
-        logger.debug("server start, listening on port ", port);
+        logger.debug("server start, listening on port:{} ", port);
 
         Runtime.getRuntime().addShutdownHook(new Thread(Server.this::stop));
     }

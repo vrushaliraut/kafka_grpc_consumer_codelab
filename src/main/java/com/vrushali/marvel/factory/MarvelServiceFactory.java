@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class MarvelServiceFactory {
 
-    public static ServerServiceDefinition instance(ApplicationConfiguration appConfig) {
+    public static ServerServiceDefinition createService(ApplicationConfiguration appConfig) {
         final DBI dbi = new DBIFactory(appConfig).create();
         final Integer marvelTimeoutInSec =
                 appConfig.getValueAsInt("MARVEL_TIMEOUT_IN_SEC", 1);
